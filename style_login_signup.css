@@ -1,0 +1,113 @@
+body {
+    background-color: #2ec1ac;
+    font-family: 'Recursive', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100vh;
+}
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #d2e603;
+    margin-top: 50px;
+}
+#icon {
+    height: 50px;
+    width: 50px;
+
+}
+.container {
+    /* border: 1px solid black; */
+    width: 50%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.login-signup-forgot {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 100px;
+    margin-bottom: 15px;
+}
+#signin, #signup {
+    margin-right: 5px;
+}
+#signin {
+    color: #d2e603;
+}
+#forgot, #signup {
+    color: #3e978b;
+}
+.inputs {
+    width: 50%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.inputs input {
+    width: 100%;
+    height: 13%;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    animation: slide-up 0.5s ease;
+}
+.inputs input:focus {
+    outline: none;
+}
+.inputs button {
+    width: 104%;
+    height: 13%;
+    border: none;
+    border-radius: 5px;
+    background-color: #3e978b;
+    color: #d2e603;
+    animation: slide-up 0.5s ease;
+}
+.inputs button:hover {
+    background-color: #239788;
+    cursor: pointer;
+}
+.inputs button:focus {
+    outline: none;
+}
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    border-bottom: 15px solid white;
+}
+.point-signin {
+    transform: translateX(-130px);
+    transition: all 0.3s ease;
+}
+.point-signup {
+    transform: translateX(-65px);
+    transition: all 0.3s ease;
+}
+.point-forgot {
+    transform: translateX(130px);
+    transition: all 0.3s ease;
+}
+#signin:hover, #signup:hover, #forgot:hover {
+    cursor: pointer;
+}
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(1px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
