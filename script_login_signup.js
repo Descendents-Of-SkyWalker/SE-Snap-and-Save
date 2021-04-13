@@ -37,6 +37,8 @@ function removeAllElements(parent) {
     }
 }
 function addSignIn() {
+    divinput.action = '';
+    divinput.action = '/signin';
     const email = document.createElement('input');
     email.type = "email";
     email.placeholder = "Email";
@@ -50,6 +52,8 @@ function addSignIn() {
     divinput.appendChild(button);
 }
 function addSignUp() {
+    divinput.action = '';
+    divinput.action = '/signup';
     const email = document.createElement('input');
     email.type = "email";
     email.placeholder = "Email";
@@ -67,6 +71,8 @@ function addSignUp() {
     divinput.appendChild(button);
 }
 function addForgot() {
+    divinput.action = '';
+    divinput.action = '/forgot';
     const email = document.createElement('input');
     email.type = "email";
     email.placeholder = "Email";
