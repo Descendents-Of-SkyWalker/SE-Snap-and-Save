@@ -1,5 +1,10 @@
 body {
-    background-color: #2ec1ac;
+    /* background-color: #2ec1ac; */
+    background: linear-gradient(127deg, rgba(29,219,135,.8), rgba(255,0,0,0) 70.71%),
+            linear-gradient(217deg, rgba(129,178,20,.8), rgba(0,255,0,0) 70.71%),
+            linear-gradient(90deg, rgba(29,219,135,.8), rgba(255,0,0,0) 70.71%),
+            linear-gradient(45deg, rgba(84,227,70,.8), rgba(255,0,0,0) 70.71%),
+            linear-gradient(336deg, rgba(32,106,93,.8), rgba(0,0,255,0) 70.71%);
     font-family: 'Recursive', sans-serif;
     display: flex;
     flex-direction: column;
@@ -8,10 +13,10 @@ body {
     height: 100vh;
 }
 h1 {
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: 700;
-    color: #d2e603;
-    margin-top: 50px;
+    color: #fff;
+    margin-top: 30px;
 }
 #icon {
     height: 50px;
@@ -19,33 +24,37 @@ h1 {
 
 }
 .container {
-    /* border: 1px solid black; */
-    width: 50%;
-    height: 80%;
+    background-color: rgba(0,0,0,0.3);
+    box-shadow: 0px 1px 24px -1px rgba(0, 0, 0, 0.25);
+    width: 40%;
+    height: 70%;
+    border-radius: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    margin: 50px 0px;
 }
 .login-signup-forgot {
-    width: 50%;
+    width: 70%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 100px;
-    margin-bottom: 15px;
+    margin-top: 50px;
+    margin-bottom: 5px;
 }
 #signin, #signup {
     margin-right: 5px;
 }
 #signin {
-    color: #d2e603;
+    color: #fff;
 }
 #forgot, #signup {
-    color: #3e978b;
+    color: #0a6155;
+    /* color: #d2e603; */
 }
 .inputs {
-    width: 50%;
+    width: 70%;
     height: 70%;
     display: flex;
     flex-direction: column;
@@ -68,18 +77,20 @@ h1 {
     height: 13%;
     border: none;
     border-radius: 5px;
-    background-color: #3e978b;
-    color: #d2e603;
+    background-color: #0a6155;
+    color: #fff;
     animation: slide-up 0.5s ease;
 }
 .inputs button:hover {
-    background-color: #239788;
+    background-color: #0a6155bd;
     cursor: pointer;
 }
 .inputs button:focus {
     outline: none;
 }
 .arrow-up {
+    position: absolute;
+    top: 37%;
     width: 0; 
     height: 0; 
     border-left: 13px solid transparent;
@@ -87,15 +98,15 @@ h1 {
     border-bottom: 15px solid white;
 }
 .point-signin {
-    transform: translateX(-130px);
+    transform: translateX(-150px);
     transition: all 0.3s ease;
 }
 .point-signup {
-    transform: translateX(-65px);
+    transform: translateX(-80px);
     transition: all 0.3s ease;
 }
 .point-forgot {
-    transform: translateX(130px);
+    transform: translateX(150px);
     transition: all 0.3s ease;
 }
 #signin:hover, #signup:hover, #forgot:hover {
