@@ -3,6 +3,7 @@ var path = require('path')
 var dotenv = require('dotenv').config()
 var mongo = require('mongodb')
 var mysql = require('mysql');
+var bodyParser = require('body-parser')
 
 
 var url = "mongodb://localhost:27017/mydb";
@@ -18,6 +19,7 @@ mongo.MongoClient.connect(url, function(err, db) {
 });
 
 var app = express()
+app.use(bodyParser.json())
 
 
 var con = mysql.createConnection({
@@ -44,33 +46,19 @@ app.get('/', function(req,res){
     
   })
 
-app.get("/signin", function(req,res){
-  res.sendFile(path.join(__dirname,'../signin.html'))
-})
 
-app.get("/signup", function(req,res){
-  res.sendFile(path.join(__dirname,'../signup.html'))
-})
 app.post("/signup", function(req, res){
-  console.log("helo")
-  if(req.body.password != req.body.cpassword){
-    res.send("password and confirm password do not match")
-    // res.sendFile(path.join(__dirname,'../signup.html'))
-  }
-  else{
-    console.log("signup")
-
-  }
+  console.log("signup")
+  console.log(req.body)
+  res.send('ok')
+  
 })
 
 
 
 app.post("/signin", function(req,res){
-  // sql = 'SELECT * FROM user where (name = "' + req.body.username + '" and password = "' +req.body.password + '");'
-  //   con.query(sql, function (err, result) {
-  //     if (err) throw err;
-  //     console.log("Result: " + result);
-  //   });
-  console.log(req)
+  console.log("signin")
+  console.log(req.body)
+  res.send('ok')
 })
 app.listen(80)
