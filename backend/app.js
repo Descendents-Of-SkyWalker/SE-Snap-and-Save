@@ -1,31 +1,17 @@
 var express = require('express')
 var path = require('path')
 var dotenv = require('dotenv').config()
-var mongo = require('mongodb')
 var mysql = require('mysql');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 
-
-var url = "mongodb://localhost:27017/mydb";
-
-mongo.MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  // var dbo = db.db("mydb")
-  // dbo.createCollection("customers", function(err, res) {
-  //   if (err) throw err;
-  //   console.log("Collection created!");
-  // })
-  db.close();
-});
 
 var app = express()
-app.use(bodyParser.json())
-
+app.use(bodyParser());
 
 var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "sudo enter"
+  host: process.env.host,
+  user: process.env.user,
+  password: process.env.password
 });
 
 con.connect(function(err) {
@@ -48,10 +34,28 @@ app.get('/', function(req,res){
 
 
 app.post("/signup", function(req, res){
+  var uid
   console.log("signup")
   console.log(req.body)
-  res.send('ok')
-  
+  con.query(`select *from user ORDER BY uid DESC LIMIT 1;`, function (err, result) {
+    if (err) throw err;
+    uid = Number(result[0].uid) + 1
+    console.log(uid)
+  });
+  var query = `SELECT * FROM user where (email = "${req.body.email}");`
+  con.query(query, function (err, result, fields) {
+    if (err) throw err;
+    if(result.length != 0){
+      res.send('email already registered')
+      return
+    }
+    var query = `INSERT INTO user VALUES (${uid}, "${req.body.name}", "${req.body.email}", "${req.body.password}");`
+    con.query(query, function (err, result) {
+      if (err) throw err;
+      console.log(result);
+      res.sendFile(path.join(__dirname, '../index_main.html'))
+    });
+  });
 })
 
 
@@ -59,6 +63,16 @@ app.post("/signup", function(req, res){
 app.post("/signin", function(req,res){
   console.log("signin")
   console.log(req.body)
-  res.send('ok')
+  var query = `SELECT * FROM user where (email = "${req.body.email}" and password = "${req.body.password}");`
+  con.query(query, function (err, result, fields) {
+    if (err) throw err;
+    console.log(result)
+    if(result.length == 0){
+      res.send('wrong credentials')
+      return
+    }
+    res.sendFile(path.join(__dirname, '../index_main.html'))
+
+  });
 })
 app.listen(80)
