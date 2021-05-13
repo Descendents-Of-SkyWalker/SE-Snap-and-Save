@@ -42,10 +42,12 @@ function addSignIn() {
     const email = document.createElement('input');
     email.type = "email";
     email.placeholder = "Email";
+    email.name = "email";
     divinput.appendChild(email);
     const password = document.createElement('input');
     password.type = "password";
     password.placeholder = "Password";
+    password.name = "password";
     divinput.appendChild(password);
     const button = document.createElement('button');
     button.textContent = "Sign In";
@@ -57,22 +59,27 @@ function addSignUp() {
     const name = document.createElement('input');
     name.type = "text";
     name.placeholder = "Full Name";
+    name.name = "fname";
     divinput.appendChild(name);
     const number = document.createElement('input');
-    number.type = "text";
+    number.type = "number";
     number.placeholder = "Mobile Number";
+    number.name = "number";
     divinput.appendChild(number);
     const email = document.createElement('input');
     email.type = "email";
     email.placeholder = "Email";
+    email.name = "email";
     divinput.appendChild(email);
     const password = document.createElement('input');
     password.type = "password";
     password.placeholder = "Password";
+    password.name = "password";
     divinput.appendChild(password);
     const rpassword = document.createElement('input');
     rpassword.type = "password";
     rpassword.placeholder = "Repeat Password";
+    rpassword.name = "rpassword";
     divinput.appendChild(rpassword);
     const button = document.createElement('button');
     button.textContent = "Sign Up";
@@ -84,8 +91,15 @@ function addForgot() {
     const email = document.createElement('input');
     email.type = "email";
     email.placeholder = "Email";
+    email.name = "email";
     divinput.appendChild(email);
     const button = document.createElement('button');
     button.textContent = "Reset Password";
     divinput.appendChild(button);
 }
+// function checkData() {
+//     const email = document.querySelector('input[name="email"]');
+//     console.log(email.value);
+//     const password = document.querySelector('input[name="password"]');
+//     console.log(password.value);
+// }
