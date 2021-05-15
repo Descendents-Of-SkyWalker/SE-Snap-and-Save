@@ -50,6 +50,7 @@ function addSignIn() {
     password.name = "password";
     divinput.appendChild(password);
     const button = document.createElement('button');
+    button.id = "btnSignin";
     button.textContent = "Sign In";
     divinput.appendChild(button);
 }
@@ -82,6 +83,7 @@ function addSignUp() {
     rpassword.name = "rpassword";
     divinput.appendChild(rpassword);
     const button = document.createElement('button');
+    button.id = "btnSignup";
     button.textContent = "Sign Up";
     divinput.appendChild(button);
 }
@@ -94,12 +96,23 @@ function addForgot() {
     email.name = "email";
     divinput.appendChild(email);
     const button = document.createElement('button');
+    button.id = "btnForgot";
     button.textContent = "Reset Password";
     divinput.appendChild(button);
 }
-// function checkData() {
-//     const email = document.querySelector('input[name="email"]');
-//     console.log(email.value);
-//     const password = document.querySelector('input[name="password"]');
-//     console.log(password.value);
-// }
+const form = document.querySelector('form');
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = Object.fromEntries(new FormData(form).entries());
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST", `http://localhost/${form.action.slice(-6)}`, true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // Response
+            var response = this.responseText;
+            // console.log(response);
+        }
+    }
+    xhttp.send(JSON.stringify(formData));
+});
