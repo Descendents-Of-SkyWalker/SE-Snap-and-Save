@@ -16,6 +16,7 @@ for (let i of list) {
         else if (i.id === "photo") {
             removeAllElements(container);
             addPhoto();
+            upload_capturePhoto();
         }
         else {
             removeAllElements(container);
@@ -52,13 +53,25 @@ function addAnalytics() {
 function addPhoto() {
     const upload = document.createElement('div');
     upload.classList.add('photo');
+    const formUpload = document.createElement('form');
+    formUpload.id = "form-upload";
+    formUpload.action = "/upload";
     const uploadlb = document.createElement('label');
     uploadlb.innerHTML = "Click here to upload an existing photo";
     upload.appendChild(uploadlb);
-    const uploadbtn = document.createElement('button');
-    uploadbtn.classList.add('photoBtn');
-    uploadbtn.innerHTML = "Upload";
-    upload.appendChild(uploadbtn);
+    const uploadbtn = document.createElement('input');
+    uploadbtn.type = "file";
+    uploadbtn.accept = "image/*";
+    uploadbtn.name = "myfile";
+    uploadbtn.id = "uploadbtn";
+    formUpload.appendChild(uploadbtn);
+    const uploadsubmit = document.createElement('input');
+    uploadsubmit.classList.add('photoBtn');
+    uploadsubmit.type = "submit";
+    uploadsubmit.name = "submit";
+    uploadsubmit.id = "uploadsubmit";
+    formUpload.appendChild(uploadsubmit);
+    upload.appendChild(formUpload);
     container.appendChild(upload);
 
     const capture = document.createElement('div');
@@ -68,6 +81,7 @@ function addPhoto() {
     capture.appendChild(capturelb);
     const capturebtn = document.createElement('button');
     capturebtn.classList.add('photoBtn');
+    capturebtn.id = "capturebtn";
     capturebtn.innerHTML = "Capture";
     capture.appendChild(capturebtn);
     container.appendChild(capture);
@@ -95,4 +109,23 @@ function addProfile() {
     email.innerHTML = "Email";
     profile.appendChild(email);
     container.appendChild(profile);
+}
+
+function upload_capturePhoto() {
+    const formUpload = document.querySelector('#form-upload');
+    formUpload.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const img = document.querySelector('#uploadbtn').files[0];
+        const data = new FormData();
+        data.append("image", img);
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("POST", `http://localhost/${formUpload.action.slice(-6)}`, true);
+        xhttp.send(data);
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // Response
+                var response = this.responseText;
+            }
+        }
+    });
 }
