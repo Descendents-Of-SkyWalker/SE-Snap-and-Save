@@ -61,18 +61,19 @@ app.post("/signup", function(req, res){
 
 
 app.post("/signin", function(req,res){
+  var isAuth
   console.log("signin")
   console.log(req.body)
   var query = `SELECT * FROM user where (email = "${req.body.email}" and password = "${req.body.password}");`
   con.query(query, function (err, result, fields) {
     if (err) throw err;
     console.log(result)
-    if(result.length == 0){
-      res.send('wrong credentials')
-      return
+    if(result.length == 1){
+      if(result[0].email == req.body.email && result[0].password == req.body.password)
+        res.sendFile(path.join(__dirname, '../index_main.html') , function(){console.log("sent")})
     }
-    res.sendFile(path.join(__dirname, '../index_main.html'))
-
-  });
+    else if(result.length == 0)
+      res.send('invalid credentials')
+  })
 })
 app.listen(80)

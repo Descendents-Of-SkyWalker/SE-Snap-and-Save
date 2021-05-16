@@ -111,7 +111,8 @@ form.addEventListener('submit', (e) => {
         if (this.readyState == 4 && this.status == 200) {
             // Response
             var response = this.responseText;
-            // console.log(response);
+            console.log(response);
+            document.write(response)
         }
     }
     xhttp.send(JSON.stringify(formData));
