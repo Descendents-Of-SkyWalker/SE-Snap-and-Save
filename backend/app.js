@@ -5,6 +5,7 @@ var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var multer = require('multer')
 var fs = require('fs')
+var bcrypt = require('bcrypt')
 
 var app = express()
 app.use(bodyParser());
@@ -58,12 +59,16 @@ app.post("/signup", function(req, res){
       res.send('email already registered')
       return
     }
-    var query = `INSERT INTO user VALUES (${uid}, "${req.body.name}", "${req.body.email}", "${req.body.password}");`
-    con.query(query, function (err, result) {
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+      if (err) throw err;
+      var query = `INSERT INTO user VALUES (${uid}, "${req.body.name}", "${req.body.email}", "${hash}");`
+      con.query(query, function (err, result) {
       if (err) throw err;
       console.log(result);
       res.sendFile(path.join(__dirname, '../index_main.html'))
     });
+    });
+    
   });
 })
 
@@ -77,13 +82,20 @@ app.post("/signin", function(req,res){
   }
   console.log("signin")
   console.log(req.body)
-  var query = `SELECT * FROM user where (email = "${req.body.email}" and password = "${req.body.password}");`
+  var query = `SELECT * FROM user where (email = "${req.body.email}");`
   con.query(query, function (err, result, fields) {
     if (err) throw err;
     console.log(result)
     if(result.length == 1){
-      if(result[0].email == req.body.email && result[0].password == req.body.password)
-        res.sendFile(path.join(__dirname, '../index_main.html') , function(){console.log("sent")})
+      if(result[0].email == req.body.email){
+        bcrypt.compare(req.body.password, result[0].password, function(err, ans) {
+          if(ans)
+          res.sendFile(path.join(__dirname, '../index_main.html') , function(){console.log("sent")})
+          else
+          res.send("check credentials")
+        });
+        
+      }
     }
     else if(result.length == 0)
       res.send('invalid credentials')
