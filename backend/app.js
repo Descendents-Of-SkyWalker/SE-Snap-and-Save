@@ -61,7 +61,7 @@ app.post("/signup", function(req, res){
     }
     bcrypt.hash(req.body.password, 10, (err, hash) => {
       if (err) throw err;
-      var query = `INSERT INTO user VALUES (${uid}, "${req.body.name}", "${req.body.email}", "${hash}");`
+      var query = `INSERT INTO user VALUES (${uid}, "${req.body.fname}", "${req.body.email}", "${hash}");`
       con.query(query, function (err, result) {
       if (err) throw err;
       console.log(result);
