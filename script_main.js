@@ -70,20 +70,34 @@ function addPhoto() {
     uploadsubmit.type = "submit";
     uploadsubmit.name = "submit";
     uploadsubmit.id = "uploadsubmit";
+    uploadsubmit.value = "Upload";
     formUpload.appendChild(uploadsubmit);
     upload.appendChild(formUpload);
     container.appendChild(upload);
 
     const capture = document.createElement('div');
     capture.classList.add('photo');
+    const formCapture = document.createElement('form');
+    formCapture.id = "form-capture";
+    formCapture.action = "/upload";
     const capturelb = document.createElement('label');
     capturelb.innerHTML = "Click here to capture<br>a new photo";
     capture.appendChild(capturelb);
-    const capturebtn = document.createElement('button');
-    capturebtn.classList.add('photoBtn');
+    const capturebtn = document.createElement('input');
+    capturebtn.type = "file";
+    capturebtn.accept = "image/*";
+    capturebtn.capture = "environment";
+    capturebtn.name = "myimg";
     capturebtn.id = "capturebtn";
-    capturebtn.innerHTML = "Capture";
-    capture.appendChild(capturebtn);
+    formCapture.appendChild(capturebtn);
+    const capturesubmit = document.createElement('input');
+    capturesubmit.classList.add('photoBtn');
+    capturesubmit.type = "submit";
+    capturesubmit.name = "submit";
+    capturesubmit.id = "capturesubmit";
+    capturesubmit.value = "Capture";
+    formCapture.appendChild(capturesubmit);
+    capture.appendChild(formCapture);
     container.appendChild(capture);
 
 }
@@ -113,13 +127,30 @@ function addProfile() {
 
 function upload_capturePhoto() {
     const formUpload = document.querySelector('#form-upload');
+    const formCapture = document.querySelector('#form-capture');
     formUpload.addEventListener('submit', (e) => {
         e.preventDefault();
         const img = document.querySelector('#uploadbtn').files[0];
         const data = new FormData();
         data.append("image", img);
         const xhttp = new XMLHttpRequest();
-        xhttp.open("POST", `http://localhost/${formUpload.action.slice(-6)}`, true);
+        xhttp.open("POST", "http://localhost/upload", true);
+        xhttp.send(data);
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // Response
+                var response = this.responseText;
+            }
+        }
+    });
+    formCapture.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const img = document.querySelector('#capturebtn').files[0];
+        const data = new FormData();
+        data.append("image", img);
+        console.log(formCapture.action);
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "http://localhost/upload", true);
         xhttp.send(data);
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
