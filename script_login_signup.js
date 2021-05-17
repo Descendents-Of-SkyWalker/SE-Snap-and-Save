@@ -104,6 +104,14 @@ const form = document.querySelector('form');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = Object.fromEntries(new FormData(form).entries());
+
+    if (`${form.action.slice(-6)}` === "signup") {
+        var obj = {};
+        obj.fname = document.querySelector('input[name="fname"]').value;
+        obj.number = document.querySelector('input[name="number"]').value;
+        obj.email = document.querySelector('input[name="email"]').value;
+        document.cookie = JSON.stringify(obj) + ";path=/";
+    }
     const xhttp = new XMLHttpRequest();
     xhttp.open("POST", `http://localhost/${form.action.slice(-6)}`, true);
     xhttp.setRequestHeader("Content-Type", "application/json");

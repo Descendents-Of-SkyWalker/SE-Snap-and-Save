@@ -103,6 +103,13 @@ function addPhoto() {
 
 }
 function addProfile() {
+    let fname = "Full Name", mnumber = "Mobile Number", eid = "Email";
+    if (document.cookie.length != 0) {
+        var obj = JSON.parse(document.cookie);
+        fname = obj.fname;
+        mnumber = obj.number;
+        eid = obj.email;
+    }
     const profile = document.createElement('div');
     profile.classList.add('profile');
     const img = document.createElement('img');
@@ -113,19 +120,21 @@ function addProfile() {
     profile.appendChild(img);
     const name = document.createElement('div');
     name.classList.add('details');
-    name.innerHTML = "Full Name";
+    name.innerHTML = fname;
     profile.appendChild(name);
     const number = document.createElement('div');
     number.classList.add('details');
-    number.innerHTML = "Mobile Number";
+    number.innerHTML = mnumber;
     profile.appendChild(number);
     const email = document.createElement('div');
     email.classList.add('details');
-    email.innerHTML = "Email";
+    email.innerHTML = eid;
     profile.appendChild(email);
     container.appendChild(profile);
 }
+function getCookie() {
 
+}
 function upload_capturePhoto() {
     const formUpload = document.querySelector('#form-upload');
     const formCapture = document.querySelector('#form-capture');
