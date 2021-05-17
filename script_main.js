@@ -43,11 +43,12 @@ function removeAllElements(parent) {
 function addAnalytics() {
     const graph = document.createElement('div');
     graph.classList.add('graph');
-    graph.innerHTML = "Graph will be displayed here";
     container.appendChild(graph);
+    addGraph();
     const stats = document.createElement('div');
     stats.classList.add('stats');
-    stats.innerHTML = "Statistics will be shown here";
+    addStats();
+    stats.innerHTML = "Statistics";
     container.appendChild(stats);
 }
 function addPhoto() {
