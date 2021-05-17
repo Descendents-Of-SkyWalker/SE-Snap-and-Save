@@ -102,27 +102,39 @@ app.post("/signin", function(req,res){
   })
 })
 
-// var upload = multer({ dest: 'upload/'});
-// var type = upload.single('myfile');
 
-// app.post('/upload', function (req,res) {
 
-  // /** When using the "single"
-  //     data come in "req.file" regardless of the attribute "name". **/
-  // var tmp_path = req.file.path;
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './uploads/')
+    },
+    filename: function(req, file, cb) {
+        cb(null,file.originalname)
+    }
+})
+const uploads = multer({
+    storage: storage
+})
 
-  // /** The original name of the uploaded file
-  //     stored in the variable "originalname". **/
-  // var target_path = 'uploads/' + req.file.originalname;
+app.post('/upload', uploads.single('image'), async (req,res) =>{
+  // console.log(req.file.path)
+  /** When using the "single"
+      data come in "req.file" regardless of the attribute "name". **/
+  var tmp_path = await req.file.path;
+  console.log(tmp_path)
+  /** The original name of the uploaded file
+      stored in the variable "originalname". **/
+  var target_path = 'uploads/' + req.file.originalname;
 
-  // /** A better way to copy the uploaded file. **/
-  // var src = fs.createReadStream(tmp_path);
-  // var dest = fs.createWriteStream(target_path);
-  // src.pipe(dest);
+  /** A better way to copy the uploaded file. **/
+  var src = fs.createReadStream(tmp_path);
+  var dest = fs.createWriteStream(target_path);
+  src.pipe(dest);
   // src.on('end', function() { res.render('complete'); });
   // src.on('error', function(err) { res.render('error'); });
-//   console.log(req.file)
-// });
+  console.log(req.file)
+  res.send("saved")
+});
 
 
 app.listen(80)
