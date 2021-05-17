@@ -147,16 +147,20 @@ function upload_capturePhoto() {
         e.preventDefault();
         const img = document.querySelector('#capturebtn').files[0];
         const data = new FormData();
+        console.log
         data.append("image", img);
         console.log(formCapture.action);
         const xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "http://localhost/upload", true);
-        xhttp.send(data);
+        xhttp.open("POST", "http://localhost:80/upload", true);
+        
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // Response
                 var response = this.responseText;
+                document.write(response)
             }
+
         }
+        xhttp.send(data);
     });
 }
