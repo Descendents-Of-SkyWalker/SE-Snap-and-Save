@@ -145,13 +145,15 @@ function upload_capturePhoto() {
         data.append("image", img);
         const xhttp = new XMLHttpRequest();
         xhttp.open("POST", "http://localhost/upload", true);
-        xhttp.send(data);
+        
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // Response
                 var response = this.responseText;
+                document.write(response)
             }
         }
+        xhttp.send(data);
     });
     formCapture.addEventListener('submit', (e) => {
         e.preventDefault();
