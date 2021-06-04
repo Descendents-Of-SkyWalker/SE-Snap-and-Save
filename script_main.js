@@ -44,7 +44,7 @@ function addAnalytics() {
     const graph = document.createElement('div');
     graph.classList.add('graph');
     container.appendChild(graph);
-    addGraph();
+    addGraph(screen.width / 2.85, screen.width / 2.85);
     const stats = document.createElement('div');
     stats.classList.add('stats');
     addStats();
@@ -150,6 +150,7 @@ function upload_capturePhoto() {
             if (this.readyState == 4 && this.status == 200) {
                 // Response
                 var response = this.responseText;
+                alert("Photo Uploaded Successfully!");
             }
         }
     });
@@ -162,12 +163,13 @@ function upload_capturePhoto() {
         console.log(formCapture.action);
         const xhttp = new XMLHttpRequest();
         xhttp.open("POST", "http://localhost:80/upload", true);
-        
+
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // Response
                 var response = this.responseText;
-                document.write(response)
+                // document.write(response);
+                alert("Photo Uploaded Successfully!");
             }
 
         }

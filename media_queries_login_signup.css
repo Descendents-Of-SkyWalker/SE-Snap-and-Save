@@ -1,0 +1,103 @@
+@media (max-width: 1440px){
+    .arrow-up {
+        top: 36%;
+    }
+    .point-signin {
+        transform: translateX(-170px);
+    }
+    .point-signup {
+        transform: translateX(-100px);
+    }
+    .point-forgot {
+        transform: translateX(170px);
+    }
+}
+@media (max-width: 1280px){
+    .arrow-up {
+        top: 37%;
+    }
+    .point-signin {
+        transform: translateX(-150px);
+    }
+    .point-signup {
+        transform: translateX(-80px);
+    }
+    .point-forgot {
+        transform: translateX(150px);
+    }
+}
+@media (max-width: 1024px){
+    .arrow-up {
+        top: 37%;
+    }
+    .point-signin {
+        transform: translateX(-110px);
+    }
+    .point-signup {
+        transform: translateX(-40px);
+    }
+    .point-forgot {
+        transform: translateX(110px);
+    }
+}
+@media (max-width: 768px){
+    .container{
+        width: 60%;
+        margin: 30px 0px;
+    }
+    .login-signup-forgot {
+        margin-top: 30px;
+        margin-bottom: 5px;
+    }
+    .arrow-up {
+        top: 38%;
+    }
+    .point-signin {
+        transform: translateX(-130px);
+    }
+    .point-signup {
+        transform: translateX(-65px);
+    }
+    .point-forgot {
+        transform: translateX(130px);
+    }
+}
+@media (max-width: 426px){
+    h1{
+        font-size: 2.5rem;
+    }
+    .container{
+        width: 85%;
+    }
+    .point-signin {
+        transform: translateX(-95px);
+    }
+    .point-signup {
+        transform: translateX(-30px);
+    }
+    .point-forgot {
+        transform: translateX(95px);
+    }
+}
+@media (max-width: 376px){
+    .container{
+        width: 90%;
+    }
+    .arrow-up {
+        top: 37%;
+    }
+}
+@media (max-width: 376px){
+    .arrow-up {
+        top: 37%;
+    }
+    .point-signin {
+        transform: translateX(-75px);
+    }
+    .point-signup {
+        transform: translateX(-10px);
+    }
+    .point-forgot {
+        transform: translateX(75px);
+    }
+}

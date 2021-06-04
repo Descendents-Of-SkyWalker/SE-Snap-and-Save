@@ -194,7 +194,6 @@ input[type=file]::file-selector-button{
 }
 .details {
     width: 80%;
-    font-size: 1.2rem;
     padding: 10px;
     color: white;
     border-bottom: 2px solid rgb(32,106,93);
