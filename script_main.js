@@ -145,7 +145,7 @@ function upload_capturePhoto() {
         data.append("image", img);
         const xhttp = new XMLHttpRequest();
         xhttp.open("POST", "http://localhost/upload", true);
-        xhttp.send(data);
+
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 // Response
@@ -153,6 +153,7 @@ function upload_capturePhoto() {
                 alert("Photo Uploaded Successfully!");
             }
         }
+        xhttp.send(data);
     });
     formCapture.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -171,7 +172,6 @@ function upload_capturePhoto() {
                 // document.write(response);
                 alert("Photo Uploaded Successfully!");
             }
-
         }
         xhttp.send(data);
     });
