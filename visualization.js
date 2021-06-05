@@ -1,6 +1,4 @@
-function addGraph() {
-    var width = 400,
-        height = 400;
+function addGraph(width, height) {
 
     var x = d3.scaleBand().range([0, width]).padding(0.1);
     var y = d3.scaleLinear().range([height, 0]);
@@ -30,11 +28,12 @@ function addGraph() {
             .attr("height", function (d) { return height - y(d.amount); });
 
         svg.append("g")
+            .attr("id", "x")
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x))
             .append("text")
             .attr("y", 35)
-            .attr("x", 235)
+            .attr("x", width / 1.7)
             .attr("text-anchor", "end")
             .attr("font-size", "1rem")
             .style("font-family", "Recursive")
@@ -42,18 +41,26 @@ function addGraph() {
             .text("Category");
 
         svg.append("g")
+            .attr("id", "y")
             .call(d3.axisLeft(y).tickFormat(function (d) {
                 return d;
             }).ticks(10))
             .append("text")
             .attr("y", -35)
-            .attr("x", -150)
+            .attr("x", -(width / 2.67))
             .attr("transform", "rotate(270)")
             .attr("text-anchor", "end")
             .attr("font-size", "1rem")
             .style("font-family", "Recursive")
             .style("fill", "rgb(32,106,93)")
             .text("Amount");
+
+        if (width < 171) {
+            d3.selectAll("#x .tick text")
+                .attr("text-anchor", "middle")
+                .attr("font-size", "0.5rem")
+                .attr("transform", "rotate(-30)");
+        }
     });
 }
 function addStats() {
