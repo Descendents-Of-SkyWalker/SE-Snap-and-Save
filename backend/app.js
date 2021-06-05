@@ -132,7 +132,7 @@ app.post(
           .status(200)
           .contentType("text/plain")
           .end("File uploaded!");
-          exec("python ../python-part/ocr.py -c ../python-part/dummy.csv -i img.jpg", (error, stdout, stderr) => {
+          exec("python ../python-part/ocr.py -c ../python-part/dummy.csv -i uploads/sample.jpg", (error, stdout, stderr) => {
             if (error) {
                 console.log(`error: ${error.message}`);
                 return;
