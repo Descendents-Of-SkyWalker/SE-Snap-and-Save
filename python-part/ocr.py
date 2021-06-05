@@ -2,7 +2,7 @@ import pytesseract
 import cv2
 import numpy as np
 
-image = np.array(cv2.imread("sample_2.jpg"))
+image = np.array(cv2.imread("sample.jpg"))
 
 text = pytesseract.image_to_string(image)
 print (text)
