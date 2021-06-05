@@ -41,18 +41,18 @@ function removeAllElements(parent) {
     }
 }
 function addAnalytics() {
-    let fname = "dummy";
-    if (document.cookie.length != 0) {
-        var obj = JSON.parse(document.cookie);
-        fname = obj.fname;
-    }
+    // let fname = "dummy";
+    // if (document.cookie.length != 0) {
+    //     var obj = JSON.parse(document.cookie);
+    //     fname = obj.fname;
+    // }
     const graph = document.createElement('div');
     graph.classList.add('graph');
     container.appendChild(graph);
-    addGraph(screen.width / 2.85, screen.width / 2.85, fname);
+    addGraph(screen.width / 2.85, screen.width / 2.85);
     const stats = document.createElement('div');
     stats.classList.add('stats');
-    addStats(fname);
+    addStats();
     stats.innerHTML = "Statistics";
     container.appendChild(stats);
 }
