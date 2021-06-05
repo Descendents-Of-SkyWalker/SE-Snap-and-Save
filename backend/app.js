@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer')
 var fs = require('fs')
 var bcrypt = require('bcrypt')
+const { exec } = require("child_process");
 
 var app = express()
 app.use(bodyParser());
@@ -61,7 +62,7 @@ app.post("/signup", function(req, res){
     }
     bcrypt.hash(req.body.password, 10, (err, hash) => {
       if (err) throw err;
-      var query = `INSERT INTO user VALUES (${uid}, "${req.body.fname}", "${req.body.email}", "${hash}");`
+      var query = `INSERT INTO user VALUES (${uid}, ${req.body.number}, "${req.body.fname}", "${req.body.email}", "${hash}");`
       con.query(query, function (err, result) {
       if (err) throw err;
       console.log(result);
@@ -116,26 +117,45 @@ const uploads = multer({
     storage: storage
 })
 
-app.post('/upload', uploads.single('image'), async (req,res) =>{
-  // console.log(req.file.path)
-  /** When using the "single"
-      data come in "req.file" regardless of the attribute "name". **/
-  var tmp_path = await req.file.path;
-  console.log(tmp_path)
-  /** The original name of the uploaded file
-      stored in the variable "originalname". **/
-  var target_path = 'uploads/' + req.file.originalname;
+app.post(
+  "/upload",
+  uploads.single("image"),
+  (req, res) => {
+    const tempPath = req.file.path;
+    const targetPath = path.join(__dirname, "./uploads/"+req.file.originalname);
+    var ext = path.extname(req.file.originalname).toLowerCase()
+    if (ext === ".png" || ext === ".jpg" || ext === ".jpeg") {
+      fs.rename(tempPath, targetPath, err => {
+        if (err) return handleError(err, res);
 
-  /** A better way to copy the uploaded file. **/
-  var src = fs.createReadStream(tmp_path);
-  var dest = fs.createWriteStream(target_path);
-  src.pipe(dest);
-  // src.on('end', function() { res.render('complete'); });
-  // src.on('error', function(err) { res.render('error'); });
-  console.log(req.file)
-  res.send("saved")
-});
+        res
+          .status(200)
+          .contentType("text/plain")
+          .end("File uploaded!");
+          exec("python ../python-part/ocr.py -c ../python-part/dummy.csv -i img.jpg", (error, stdout, stderr) => {
+            if (error) {
+                console.log(`error: ${error.message}`);
+                return;
+            }
+            if (stderr) {
+                console.log(`stderr: ${stderr}`);
+                return;
+            }
+            console.log(`stdout: ${stdout}`);
+        });
+      });
+    } else {
+      fs.unlink(tempPath, err => {
+        if (err) return handleError(err, res);
 
+        res
+          .status(403)
+          .contentType("text/plain")
+          .end("check file type!");
+      });
+    }
+  }
+);
 
 app.listen(80)
 

@@ -41,13 +41,18 @@ function removeAllElements(parent) {
     }
 }
 function addAnalytics() {
+    let fname = "dummy";
+    if (document.cookie.length != 0) {
+        var obj = JSON.parse(document.cookie);
+        fname = obj.fname;
+    }
     const graph = document.createElement('div');
     graph.classList.add('graph');
     container.appendChild(graph);
-    addGraph(screen.width / 2.85, screen.width / 2.85);
+    addGraph(screen.width / 2.85, screen.width / 2.85, fname);
     const stats = document.createElement('div');
     stats.classList.add('stats');
-    addStats();
+    addStats(fname);
     stats.innerHTML = "Statistics";
     container.appendChild(stats);
 }
@@ -131,9 +136,6 @@ function addProfile() {
     email.innerHTML = eid;
     profile.appendChild(email);
     container.appendChild(profile);
-}
-function getCookie() {
-
 }
 function upload_capturePhoto() {
     const formUpload = document.querySelector('#form-upload');
