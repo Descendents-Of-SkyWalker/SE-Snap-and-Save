@@ -71,7 +71,7 @@ if file_exists:
             line_count += 1
 fields = ['category', 'amount']
 
-with open(filename, 'w') as csvfile: 
+with open(filename, 'w', newline='') as csvfile: 
     # creating a csv writer object 
     csvwriter = csv.writer(csvfile) 
         
