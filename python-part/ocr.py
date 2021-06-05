@@ -24,7 +24,7 @@ for i in range(len(extracted_text)):
     extracted_text[i][1] = int(extracted_text[i][1][:-2])
 
 
-import json
+
 
 Medical = 0
 Food = 0
@@ -33,8 +33,14 @@ Fuel = 0
 Clothes = 0
 Others = 0
 
-file = open('data-dictionary.json')
-data = json.load(file)
+data = {
+    "Medical" : ["combiflame", "crocin", "paracetemol", "painKiller", "bandage", "anticeptic"],
+    "Food" : ["sandwich", "coffee", "tea", "pasta", "maggi", "oreo"],
+    "Essentials" : ["olive-oil", "dal", "wheat", "milk", "soap", "body-wash"],
+    "Fuel" : ["CNG", "petrol", "Diesel"],
+    "Clothes" : ["shirt", "pant", "jeans", "t-shirt", "shorts", "tops"]
+}
+
 for i in extracted_text:
     for keys, values in data.items():
         if i[0] in values:
