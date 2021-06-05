@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer')
 var fs = require('fs')
 var bcrypt = require('bcrypt')
+const { exec } = require("child_process");
 
 var app = express()
 app.use(bodyParser());
@@ -131,6 +132,17 @@ app.post(
           .status(200)
           .contentType("text/plain")
           .end("File uploaded!");
+          exec("python ../python-part/ocr.py -c ../python-part/dummy.csv -i img.jpg", (error, stdout, stderr) => {
+            if (error) {
+                console.log(`error: ${error.message}`);
+                return;
+            }
+            if (stderr) {
+                console.log(`stderr: ${stderr}`);
+                return;
+            }
+            console.log(`stdout: ${stdout}`);
+        });
       });
     } else {
       fs.unlink(tempPath, err => {
