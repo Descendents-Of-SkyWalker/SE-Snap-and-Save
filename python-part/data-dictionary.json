@@ -1,0 +1,7 @@
+{
+    "Medical" : ["combiflame", "crocin", "paracetemol", "painKiller", "bandage", "anticeptic"],
+    "Food" : ["sandwich", "coffee", "tea", "pasta", "maggi", "oreo"],
+    "Essentials" : ["olive-oil", "dal", "wheat", "milk", "soap", "body-wash"],
+    "Fuel" : ["CNG", "petrol", "Diesel"],
+    "Clothes" : ["shirt", "pant", "jeans", "t-shirt", "shorts", "tops"]
+}
