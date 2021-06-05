@@ -1,8 +1,16 @@
 import pytesseract
 import cv2
 import numpy as np
+import argparse
+import csv
+import os.path
+parser = argparse.ArgumentParser(description='parse the image fileName')
+parser.add_argument('-i', help='image name')
+parser.add_argument('-c', help='CSV name')
+args = parser.parse_args()
+print(args.c)
 
-image = np.array(cv2.imread("sample_2.jpg"))
+image = np.array(cv2.imread(args.i))
 
 text = pytesseract.image_to_string(image)
 print (text)
@@ -44,4 +52,31 @@ for i in extracted_text:
                 Others += i[1]
 
 
-print(Medical, Food, Essentials, Fuel, Clothes, Others)     
+# print(Medical, Food, Essentials, Fuel, Clothes, Others)
+
+
+filename = args.c
+file_exists = os.path.isfile(filename) 
+rows = [['Medical', Medical],['Food',Food],['Essentials',Essentials],['Fuel',Fuel],['Clothes',Clothes],['Others',Others]]
+
+if file_exists:
+    # do something
+    with open(filename, mode='r') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        line_count = 0
+        ptr=0
+        for row in csv_reader:
+            rows[ptr][1]+=int(row['amount'])
+            ptr+=1
+            line_count += 1
+fields = ['category', 'amount']
+
+with open(filename, 'w') as csvfile: 
+    # creating a csv writer object 
+    csvwriter = csv.writer(csvfile) 
+        
+    # writing the fields 
+    csvwriter.writerow(fields) 
+        
+    # writing the data rows 
+    csvwriter.writerows(rows)
