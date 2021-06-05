@@ -52,7 +52,7 @@ function addAnalytics() {
     addGraph(screen.width / 2.85, screen.width / 2.85, fname);
     const stats = document.createElement('div');
     stats.classList.add('stats');
-    addStats();
+    addStats(fname);
     stats.innerHTML = "Statistics";
     container.appendChild(stats);
 }

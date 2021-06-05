@@ -9,7 +9,7 @@ function addGraph(width, height, fname) {
         .append("g")
         .attr("transform", "translate(" + 55 + "," + 15 + ")");
 
-    const dummy = d3.csv(`${fname}.csv`);
+    const dummy = d3.csv(`python-part/${fname}.csv`);
     dummy.then(function (data) {
         data.forEach(function (d) {
             d.amount = +d.amount;
@@ -63,8 +63,8 @@ function addGraph(width, height, fname) {
         }
     });
 }
-function addStats() {
-    const dummy = d3.csv("dummy.csv");
+function addStats(fname) {
+    const dummy = d3.csv(`python-part/${fname}.csv`);
     dummy.then(function (data) {
         data.forEach(function (d) {
             d.amount = +d.amount;
